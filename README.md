@@ -1,0 +1,1 @@
+This is a Javascript implementation of Rock, Paper, Scissors using the browser console.
