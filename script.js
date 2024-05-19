@@ -1,6 +1,65 @@
 
 playGame();
 
+function playGame(){
+    let humanScore = 0;
+    let computerScore = 0;
+    let ties = 0;
+    //const numberRounds = 5;
+    let winner;
+
+    const resultsContainer = document.querySelector(".results");
+
+    const determineWinner = function(humanChoice) {
+        winner = playRound(getComputerChoice(), humanChoice);
+        if (winner == "human") {
+            humanScore++;
+        } else if (winner == "computer"){
+            computerScore++;
+        } else if (winner == "tie"){
+            ties++;
+        }
+        console.log("The scores are: " + humanScore + " for the human and " +
+        computerScore + " for the computer and " + ties + " ties.");
+        resultsContainer.textContent = "The scores are: " + humanScore + " for the human and " +
+        computerScore + " for the computer and " + ties + " ties.";
+        
+        
+        if (humanScore === 5){
+            resultsContainer.textContent = "Human wins!";
+            buttonContainer.remove();
+        } else if (computerScore === 5){
+            resultsContainer.textContent = "Computer wins!";
+            buttonContainer.remove();
+        }
+    }
+
+    const rockButton = document.createElement("button");
+    rockButton.textContent = "ROCK";
+    rockButton.addEventListener('click', () => {
+        determineWinner("rock");
+    });
+    
+    const paperButton = document.createElement("button");
+    paperButton.textContent = "PAPER";
+    paperButton.addEventListener('click', () => {
+        determineWinner("paper");
+    });
+    
+    const scissorsButton = document.createElement("button");
+    scissorsButton.textContent = "SCISSORS";
+    scissorsButton.addEventListener('click', () => {
+        determineWinner('scissors');
+    });
+    
+    const buttonContainer = document.querySelector('.button-container');
+    buttonContainer.appendChild(rockButton);
+    buttonContainer.appendChild(paperButton);
+    buttonContainer.appendChild(scissorsButton);  
+    //const playRoundObj = playRound()
+    
+}
+
 //Randomly return rock paper or scissors
 function getComputerChoice(){
     // console.log("Calling getComputerChoice");
@@ -67,25 +126,3 @@ function playRound(computerChoice, humanChoice){
 
 }
 
-function playGame(){
-    let humanScore = 0;
-    let computerScore = 0;
-    let ties = 0;
-    const numberRounds = 5;
-    let winner;
-
-    for (var i = 0; i < numberRounds; i++){
-        winner = playRound(getComputerChoice(), getHumanChoice(),computerScore,humanScore);
-        if (winner == "human") {
-            humanScore++;
-        } else if (winner == "computer"){
-            computerScore++;
-        } else if (winner == "tie"){
-            ties++;
-        }
-    }
-
-    console.log("The scores after 5 rounds are: " + humanScore + " for the human and " +
-        computerScore + " for the computer and " + ties + " ties.");
-    
-}
